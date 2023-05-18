@@ -19,14 +19,20 @@
 
 <script lang="ts">
 
-import {defineComponent } from 'vue';
+import { defineComponent } from 'vue';
 import cronometro from './cronometro.vue'
 
 export default defineComponent({
     name: 'temporizador-',
-    emits:['aoTemporizadorFinalizado'],
+    emits: ['aoTemporizadorFinalizado'],
     components: {
         cronometro
+    },
+    props: {
+        nomeTarefa: {
+            type: String,
+            required: true
+        }
     },
     data() {
         return {
@@ -37,25 +43,26 @@ export default defineComponent({
     },
     methods: {
         iniciar() {
-            this.cronometroRodando= true;
+            this.cronometroRodando = true;
             this.cronometro = setInterval(() => {
                 this.tempoEmSegundos += 1
             }, 1000)
         },
         finalizar() {
-            this.cronometroRodando= false
+            this.cronometroRodando = false
             clearInterval(this.cronometro)
+
+            new Notification("Alura Tracker", {
+                body: `Tarefa ${this.nomeTarefa} finalizada.`,
+            })
+
             this.$emit('aoTemporizadorFinalizado', this.tempoEmSegundos)
             this.tempoEmSegundos = 0
 
-            new Notification("Acabou", {
-            body: 'Corpo',
-   })
         }
     },
-    mounted(){Notification.requestPermission().then(permission => {
-         console.log(permission);
-      });
+    mounted() {
+        Notification.requestPermission()
     }
 })
 </script>

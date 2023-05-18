@@ -10,7 +10,7 @@
                     />
             </div>
             <div class="column">
-                <temporizador @aoTemporizadorFinalizado="finalizarTarefa"/>
+                <temporizador @aoTemporizadorFinalizado="finalizarTarefa" :nome-tarefa="descricao"/>
             </div>
         </div>
     </div>
