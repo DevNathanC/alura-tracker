@@ -47,10 +47,17 @@ export default defineComponent({
             clearInterval(this.cronometro)
             this.$emit('aoTemporizadorFinalizado', this.tempoEmSegundos)
             this.tempoEmSegundos = 0
+
+            new Notification("Acabou", {
+            body: 'Corpo',
+   })
         }
+    },
+    mounted(){Notification.requestPermission().then(permission => {
+         console.log(permission);
+      });
     }
 })
-
 </script>
 
 
